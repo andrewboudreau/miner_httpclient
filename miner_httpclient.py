@@ -24,8 +24,10 @@ class Client:
         response = requests.post(self.url, json=self.jsonrpc_payload(method, data))
         return response.json()["result"]
 
-    # accountq
-
+    # account
+    def account(self, address):
+        return self.http_post("account_get", address)
+    
     # blocks
     def block_height(self):
         return self.http_post("block_height")
@@ -68,7 +70,7 @@ class Client:
         return self.http_post("info_height")
     
     def info_in_consensus(self):
-        return self.http_post("info_in_consensus")
+        return self.http_post("info_in_consensus")["in_consensus"]
     
     def info_name(self):
         return self.http_post("info_name")
