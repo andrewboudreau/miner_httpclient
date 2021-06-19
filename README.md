@@ -18,5 +18,5 @@ False
  - loose json result sets or do we want typed results
  - get the rest of the [api surface](https://github.com/helium/miner/tree/mra/jsonrpc/src/jsonrpc) implemented
  - how other people write api clients in python [SendGrid](https://github.com/sendgrid/sendgrid-python)
- - convert this into an open api spec and just use [openapi-python-client](https://pypi.org/project/openapi-python-client/)
+ - convert this into an [open api spec](https://swagger.io/specification/) and just use [openapi-python-client](https://pypi.org/project/openapi-python-client/)
    - after this everyone can win, this feels like the grand finale.
