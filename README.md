@@ -12,10 +12,6 @@ False
 # Todo
  - learn python (ok yeah sure... doing that)
 - *PARAMS*, wait for code fixes, thanks evan.
-
-~~ - *PARAMS*, json rpc params into erlang handlers (HOW, one example of this working solves them all)
-   - tried json, tuples, dictionary, lists, and various other inputs but only to get `invalid request` or `method not found`
-   - if i had to be it's really easy and only challenge is my lack of knowledge here ~~
  - figure out simple error handling
  - use a library [jsonrpcclient](https://jsonrpcclient.readthedocs.io/en/latest/api.html), seems fine so far. 
  - loose json result sets or do we want typed results for the results?
