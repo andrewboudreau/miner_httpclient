@@ -18,10 +18,9 @@ class Client:
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
         self.client = HTTPClient(self.url, basic_logging=True)
 
-    def http_post(self, method, *args, **kwargs):
-        print(*args)
-        print(**kwargs)
-        response = self.client.send(Request(method, args, kwargs))
+    def http_post(self, method, **kwargs):
+        print(kwargs)
+        response = self.client.send(Request(method, kwargs))
         if response.data.ok:
           print(response.data.result)
           return response.data.result
