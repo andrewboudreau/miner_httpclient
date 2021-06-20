@@ -3,6 +3,11 @@ import json
 import logging
 import requests
 
+# since i'm a newb, pip install "jsonrpcclient[requests]"
+from jsonrpcclient import request
+from jsonrpcclient.clients.http_client import HTTPClient
+from jsonrpcclient.requests import Request
+
 logger = logging.getLogger(__name__)
 
 # miner http api reference code
@@ -13,22 +18,21 @@ class Client:
     
     def __init__(self, scheme="http", host="localhost", port="4467"):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
+        self.client = HTTPClient(self.url, basic_logging=True)
 
-    def jsonrpc_payload(self, method, params):
-        return {
-            "jsonrpc": "2.0",
-            "id": 1,
-            "method": method,
-            "params": params
-        }
-    
-    def http_post(self, method, data=[""]):
-        response = requests.post(self.url, json=self.jsonrpc_payload(method, data))
-        return response.json()["result"]
+    def http_post(self, method, **kwargs):
+        print(kwargs)
+        response = self.client.send(Request(method, kwargs))
+        if response.data.ok:
+          print(response.data.result)
+          return response.data.result
+        else:
+          logging.error(response.data.message)
+          return None
 
     # account
-    def account(self, address):
-        return self.http_post("account_get", address)
+    def account(self, address="1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"):
+        return self.client.request("account_get", address=address)
     
     # blocks
     def block_height(self):
@@ -38,7 +42,7 @@ class Client:
         if height is None:
           return self.http_post("block_get") 
         else:
-          return self.http_post("block_get", height)
+          return self.http_post("block_get", height=height)
 
     #def blockForHash(self, hash):
         # not sure what to do here
