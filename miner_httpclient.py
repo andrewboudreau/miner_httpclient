@@ -9,6 +9,8 @@ logger = logging.getLogger(__name__)
 ## https://github.com/helium/miner/tree/mra/jsonrpc/src/jsonrpc
 
 class Client:
+    a = "1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"
+    
     def __init__(self, scheme="http", host="localhost", port="4467"):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
 

@@ -11,12 +11,15 @@ False
 
 # Todo
  - learn python (ok yeah sure... doing that)
- - *PARAMS*, json rpc params into erlang handlers (HOW, one example of this working solves them all)
+- *PARAMS*, wait for code fixes, thanks evan.
+
+~~ - *PARAMS*, json rpc params into erlang handlers (HOW, one example of this working solves them all)
    - tried json, tuples, dictionary, lists, and various other inputs but only to get `invalid request` or `method not found`
-   - if i had to be it's really easy and only challenge is my lack of knowledge here
+   - if i had to be it's really easy and only challenge is my lack of knowledge here ~~
  - figure out simple error handling
- - loose json result sets or do we want typed results
+ - use a library [jsonrpcclient](https://jsonrpcclient.readthedocs.io/en/latest/api.html), seems fine so far. 
+ - loose json result sets or do we want typed results for the results?
  - get the rest of the [api surface](https://github.com/helium/miner/tree/mra/jsonrpc/src/jsonrpc) implemented
  - how other people write api clients in python [SendGrid](https://github.com/sendgrid/sendgrid-python)
- - convert this into an open api spec and just use [openapi-python-client](https://pypi.org/project/openapi-python-client/)
+ - create an [open-rpc document](https://spec.open-rpc.org/#introduction) for the miner 
    - after this everyone can win, this feels like the grand finale.
