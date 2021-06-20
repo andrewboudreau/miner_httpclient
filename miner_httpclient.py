@@ -93,4 +93,68 @@ class Client:
     def info_summary(self):
         return self.http_post("info_summary")
 
+    # ledger
+    def ledger_balance(self, address=None):
+        if address is None:
+          return self.http_post("ledger_balance") 
+        else:
+          return self.http_post("ledger_balance", address=address)
+    
+    #def ledger_balance(self, htlc=True):
+    #  return False
+
+    def ledger_gateways(self, verbose=False):
+        return self.http_post("ledger_gateways")
+
+    def ledger_validators(self):
+         return self.http_post("ledger_validators")
+
+    def ledger_variables(self, name=None):
+         return self.http_post("ledger_variables")
+
+    # peer
+    def peer_session(self):
+        return self.http_post("peer_session")
+
+    def peer_listen(self):
+        return self.http_post("peer_listen")
+
+    def peer_addr(self):
+        return self.http_post("peer_addr")
+
+    def peer_connect(self, address):
+        return self.http_post("peer_connect")
+
+    def peer_ping(self, address):
+        return self.http_post("peer_ping")
+
+    def peer_book(self, address):
+        return self.http_post("peer_book")
+
+    def peer_gossip_peers(self):
+        return self.http_post("peer_gossip_peers")
+
+    def peer_refresh(self, address=None):
+        return self.http_post("peer_refresh")
+
+   # state channel
+    def sc_active(self):
+        return self.http_post("sc_active")
+
+    def sc_list(self):
+        return self.http_post("sc_list")
+
+    # snapshot
+    def snapshot_list(self):
+        return self.http_post("snapshot_list")
+
+    # transaction
+
+    # transactions
+
+# txn_queue(self)
+# txn_add_gateway(self, owner)
+# txn_assert_location(self, {owner, location})
+
+# transaction_get(self, hash)
  # 1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw
