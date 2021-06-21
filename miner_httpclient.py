@@ -5,6 +5,7 @@ import requests
 
 # since i'm a newb, pip install "jsonrpcclient[requests]"
 from jsonrpcclient import request
+from jsonrpcclient.exceptions import ReceivedErrorResponseError
 from jsonrpcclient.clients.http_client import HTTPClient
 from jsonrpcclient.requests import Request
 
@@ -21,14 +22,11 @@ class Client:
         self.client = HTTPClient(self.url, basic_logging=True)
 
     def http_post(self, method, **kwargs):
-        print(kwargs)
-        response = self.client.send(Request(method, kwargs))
-        if response.data.ok:
-          print(response.data.result)
-          return response.data.result
-        else:
-          logging.error(response.data.message)
-          return None
+        try:
+          return self.client.send(Request(method, kwargs))
+        except ReceivedErrorResponseError as ex:
+            return ex #logging.error("%d: %s", ex.data.id, response.data.message)
+            return None
 
     # account
     def account(self, address="1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"):
@@ -149,6 +147,8 @@ class Client:
         return self.http_post("snapshot_list")
 
     # transaction
+    def snapshot_list(self):
+        return self.http_post("snapshot_list")
 
     # transactions
 
