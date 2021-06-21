@@ -19,18 +19,17 @@ class Client:
     
     def __init__(self, scheme="http", host="localhost", port="4467"):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
-        self.client = HTTPClient(self.url, basic_logging=True)
+        self.client = HTTPClient(self.url, basic_logging=False)
 
     def http_post(self, method, **kwargs):
         try:
           return self.client.send(Request(method, kwargs))
         except ReceivedErrorResponseError as ex:
-            return ex #logging.error("%d: %s", ex.data.id, response.data.message)
-            return None
+            logging.error(" id: %d method: '%s' message: %s", ex.response.id, method, ex.response.message)
 
     # account
     # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_accounts.erl
-    def account(self, address="1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"):
+    def account_get(self, address="1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"):
         return self.client.request("account_get", address=address)
     
     # blocks
@@ -38,7 +37,7 @@ class Client:
     def block_height(self):
         return self.http_post("block_height")
     
-    def block(self, height=None):
+    def block_get(self, height=None):
         if height is None:
           return self.http_post("block_get") 
         else:
@@ -170,5 +169,3 @@ class Client:
     # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_txns.erl
     def transaction_get(self, hash):
         return self.http_post("transaction_get", hash=hash)
-
- # 1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw
