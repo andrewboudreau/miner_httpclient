@@ -17,9 +17,9 @@ logger = logging.getLogger(__name__)
 class Client:
     a = "1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"
     
-    def __init__(self, scheme="http", host="localhost", port="4467"):
+    def __init__(self, scheme="http", host="localhost", port="4467", logging=False):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
-        self.client = HTTPClient(self.url, basic_logging=False)
+        self.client = HTTPClient(self.url, basic_logging=logging)
 
     def http_post(self, method, **kwargs):
         try:
