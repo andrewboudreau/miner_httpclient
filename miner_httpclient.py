@@ -3,10 +3,10 @@ import json
 import logging
 import requests
 
-# since i'm a newb, pip install "jsonrpcclient[requests]"
+# since i'm a newbie, pip install "jsonrpcclient[requests]"
 from jsonrpcclient import request
-from jsonrpcclient.exceptions import ReceivedErrorResponseError
 from jsonrpcclient.clients.http_client import HTTPClient
+from jsonrpcclient.exceptions import ReceivedErrorResponseError
 from jsonrpcclient.requests import Request
 
 logger = logging.getLogger(__name__)
@@ -29,10 +29,12 @@ class Client:
             return None
 
     # account
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_accounts.erl
     def account(self, address="1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"):
         return self.client.request("account_get", address=address)
     
     # blocks
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_blocks.erl
     def block_height(self):
         return self.http_post("block_height")
     
@@ -46,6 +48,7 @@ class Client:
         # not sure what to do here
     
     # dkg
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_dkg.erl
     def dkg_status(self):
         return self.http_post("dkg_status")
         
@@ -60,6 +63,7 @@ class Client:
 
 
     # hbbft
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_hbbft.erl
     def hbbft_status(self):
         return self.http_post("hbbft_status")
 
@@ -70,6 +74,7 @@ class Client:
         return self.http_post("hbbft_skip")
 
     # info
+    # # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_info.erl
     def info_height(self):
         return self.http_post("info_height")
     
@@ -92,6 +97,7 @@ class Client:
         return self.http_post("info_summary")
 
     # ledger
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_ledger.erl
     def ledger_balance(self, address=None):
         if address is None:
           return self.http_post("ledger_balance") 
@@ -111,6 +117,7 @@ class Client:
          return self.http_post("ledger_variables")
 
     # peer
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_peer.erl
     def peer_session(self):
         return self.http_post("peer_session")
 
@@ -136,6 +143,7 @@ class Client:
         return self.http_post("peer_refresh")
 
    # state channel
+   # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_sc.erl
     def sc_active(self):
         return self.http_post("sc_active")
 
@@ -143,18 +151,24 @@ class Client:
         return self.http_post("sc_list")
 
     # snapshot
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_snapshot.erl
     def snapshot_list(self):
         return self.http_post("snapshot_list")
 
-    # transaction
-    def snapshot_list(self):
-        return self.http_post("snapshot_list")
+    # txn
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_txn.erl
+    def txn_queue(self):
+        return self.http_post("txn_queue")
 
-    # transactions
+    def txn_add_gateway(self, owner):
+        return self.http_post("txn_add_gateway", owner)
 
-# txn_queue(self)
-# txn_add_gateway(self, owner)
-# txn_assert_location(self, {owner, location})
+    def txn_assert_location(self, owner, location):
+        return self.http_post("txn_assert_location", owner=owner, location=location)
 
-# transaction_get(self, hash)
+    # txns
+    # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_txns.erl
+    def transaction_get(self, hash):
+        return self.http_post("transaction_get", hash=hash)
+
  # 1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw
