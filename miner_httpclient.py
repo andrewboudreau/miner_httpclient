@@ -23,7 +23,8 @@ class Client:
 
     def http_post(self, method, **kwargs):
         try:
-          return self.client.send(Request(method, kwargs))
+          response = self.client.send(Request(method, kwargs))
+          return response.data.result
         except ReceivedErrorResponseError as ex:
             logging.error(" id: %d method: '%s' message: %s", ex.response.id, method, ex.response.message)
 
