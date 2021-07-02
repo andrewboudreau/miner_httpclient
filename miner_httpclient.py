@@ -14,23 +14,27 @@ logger = logging.getLogger(__name__)
 # miner http api reference code
 ## https://github.com/helium/miner/tree/mra/jsonrpc/src/jsonrpc
 
-class Client:
-    a = "1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"
-    
-    def __init__(self, scheme="http", host="localhost", port="4467", logging=False):
+class Client:    
+    def __init__(self, scheme="http", host="localhost", port="4467", logging=True):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
         self.client = HTTPClient(self.url, basic_logging=logging)
 
     def http_post(self, method, **kwargs):
+        print(kwargs)
         try:
-          response = self.client.send(Request(method, kwargs))
+          if not kwargs:              
+            response = self.client.send(Request(method))
+          else:
+            response = self.client.send(Request(method, kwargs))
+
           return response.data.result
+
         except ReceivedErrorResponseError as ex:
             logging.error(" id: %d method: '%s' message: %s", ex.response.id, method, ex.response.message)
 
     # account
     # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_accounts.erl
-    def account_get(self, address="1YSY5aooEh3LEt7sxDt1xdqw4cUd1gpwztQKE1fPsGRDozmJ2sw"):
+    def account_get(self, address):
         return self.client.request("account_get", address=address)
     
     # blocks
@@ -42,7 +46,31 @@ class Client:
         if height is None:
           return self.http_post("block_get") 
         else:
+          print(f"with height of {height}")
           return self.http_post("block_get", height=height)
+
+    # info
+    # # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_info.erl
+    def info_height(self):
+        return self.http_post("info_height")
+    
+    def info_in_consensus(self):
+        return self.http_post("info_in_consensus")["in_consensus"]
+    
+    def info_name(self):
+        return self.http_post("info_name")["name"]
+    
+    def info_block_age(self):
+        return self.http_post("info_block_age")
+    
+    def info_p2p_status(self):
+        return self.http_post("info_p2p_status")
+    
+    def info_region(self):
+        return self.http_post("info_region")
+    
+    def info_summary(self):
+        return self.http_post("info_summary")
 
     #def blockForHash(self, hash):
         # not sure what to do here
@@ -72,29 +100,6 @@ class Client:
 
     def hbbft_skip(self):
         return self.http_post("hbbft_skip")
-
-    # info
-    # # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_info.erl
-    def info_height(self):
-        return self.http_post("info_height")
-    
-    def info_in_consensus(self):
-        return self.http_post("info_in_consensus")["in_consensus"]
-    
-    def info_name(self):
-        return self.http_post("info_name")
-    
-    def info_block_age(self):
-        return self.http_post("info_block_age")
-    
-    def info_p2p_status(self):
-        return self.http_post("info_p2p_status")
-    
-    def info_region(self):
-        return self.http_post("info_region")
-    
-    def info_summary(self):
-        return self.http_post("info_summary")
 
     # ledger
     # https://github.com/helium/miner/blob/mra/jsonrpc/src/jsonrpc/miner_jsonrpc_ledger.erl

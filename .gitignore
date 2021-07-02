@@ -1,5 +1,8 @@
-# Byte-compiled / optimized / DLL files
 deploy.sh
+*.pem
+*.ppk
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class

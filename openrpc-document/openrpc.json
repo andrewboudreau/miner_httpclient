@@ -1,0 +1,52 @@
+{
+  "openrpc": "1.0.0-rc1",
+  "info": {
+    "version": "1.0.4",
+    "title": "Helium Miner",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4467"
+    }
+  ],
+  "methods": [
+    {
+      "name": "info_height",
+      "summary": "Get height of the blockchain for this miner",
+      "description": "The first number is the current election epoch, and the second is the block height.  If the second number is displayed with an asterisk (*) this node has yet to sync past the assumed valid hash in the node config.",
+      "params": [],
+      "tags": [
+        {
+          "name": "info",
+          "description": "miner info commands"
+        }
+      ],
+      "result": {
+        "name": "height",
+        "description": "The election epoch and the block height.",
+        "schema": {
+          "$ref": "#/components/schemas/height"
+        }
+      }
+    }
+  ],
+  "components": {
+    "schemas": {
+      "height": {
+        "type": "object",
+        "properties" : {
+          "epoch" : {
+            "type" : "integer"
+          },
+          "height": {
+            "type": "string"
+            }
+          }
+        }
+      }
+  }
+}
+  

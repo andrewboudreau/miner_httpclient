@@ -6,12 +6,13 @@ The helium miner is getting a [JSON RPC API](https://github.com/helium/miner/tre
 ```python
 >>> Client().info_in_consensus()
 False
+>>> Client().info_name()
+Rich_Holographic_Robin
 >>> Client().block_height()
 ```
 
 # Todo
  - learn python (ok yeah sure... doing that)
-- *PARAMS*, wait for code fixes, thanks evan.
  - figure out simple error handling
  - use a library [jsonrpcclient](https://jsonrpcclient.readthedocs.io/en/latest/api.html), seems fine so far. 
  - loose json result sets or do we want typed results for the results?
