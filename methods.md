@@ -20,19 +20,23 @@
   ```
 
 # [blocks](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_blocks.erl)
- - def block_height(self)
- - def block_get(self, height=None)
+ - [X] block_height()
+ - [X] block_get(height=None)
+ ```python
+    c = Client()
+    height = c.block_height()
+    c.block_get(height)
+  ```
 
 # [info](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_info.erl)
- - def info_height(self)
- - def info_in_consensus(self) 
- - def info_name(self)
- - def info_block_age(self)
- - def info_p2p_status(self) 
- - def info_region(self)
- - def info_summary(self)
- - def blockForHash(self, hash)
-
+ - [X] info_height()
+ - [X] info_in_consensus() 
+ - [X] info_name()
+ - [X] info_block_age()
+ - [ ] info_p2p_status() 
+ - [ ] info_region()
+ - [X] info_summary()
+ 
 # [dkg](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_dkg.erl)
  - def dkg_status(self)
  - def dkg_queue(self)
