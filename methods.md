@@ -12,7 +12,12 @@
 ```
 
 # [account](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl)
- - def account_get(self, address)
+ - [X] account_get(address)
+  ```python
+    c = Client()
+    addr = c.peer_addr()
+    c.account_get(addr)
+  ```
 
 # [blocks](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_blocks.erl)
  - def block_height(self)

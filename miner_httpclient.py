@@ -34,7 +34,7 @@ class Client:
     # account
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl
     def account_get(self, address):
-        return self.client.request("account_get", address=address)
+        return self.http_post("account_get", address=address)
     
     # blocks
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_blocks.erl
