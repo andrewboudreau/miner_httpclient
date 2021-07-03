@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 ## https://github.com/helium/miner/tree/mra/jsonrpc/src/jsonrpc
 
 class Client:    
-    def __init__(self, scheme="http", host="localhost", port="4467", logging=True):
+    def __init__(self, scheme="http", host="localhost", port=4467, logging=True):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
         self.client = HTTPClient(self.url, basic_logging=logging)
 
@@ -39,7 +39,7 @@ class Client:
     # blocks
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_blocks.erl
     def block_height(self):
-        return self.http_post("block_height")
+        return self.http_post("block_height")["height"]
     
     def block_get(self, height=None, hash=None):
         if height is None and hash is None:
