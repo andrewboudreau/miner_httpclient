@@ -42,10 +42,12 @@ class Client:
         return self.http_post("block_height")
     
     def block_get(self, height=None, hash=None):
-        if height is None:
+        if height is None and hash is None:
           return self.http_post("block_get") 
-        else:
+        elif hash is None:
           return self.http_post("block_get", height=height)
+        else:
+          return self.http_post("block_get", hash=hash)
 
     # info
     # # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_info.erl
@@ -59,7 +61,7 @@ class Client:
         return self.http_post("info_name")["name"]
     
     def info_block_age(self):
-        return self.http_post("info_block_age")
+        return self.http_post("info_block_age")["block_age"]
     
     def info_p2p_status(self):
         return self.http_post("info_p2p_status")
