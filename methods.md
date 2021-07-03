@@ -1,3 +1,16 @@
+ 
+  ```erlang 
+  % # docker exec -it validator miner remote_console
+   miner_jsonrpc_blocks:handle_rpc(<<"block_get">>, #{<<"height">> => 904612}).
+```
+
+```bash
+ curl 
+ -H 'Content-Type: application/json-rpc' 
+ -d '{"jsonrpc":"2.0","id":1,"method":"block_get", "params":{"height":904612}}' 
+ http://127.0.0.1:4467
+```
+
 # [account](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl)
  - def account_get(self, address)
 

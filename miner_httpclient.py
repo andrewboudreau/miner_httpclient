@@ -24,7 +24,7 @@ class Client:
           if not kwargs:              
             response = self.client.send(Request(method))
           else:
-            response = self.client.send(Request(method, kwargs))
+            response = self.client.send(Request(method, **kwargs))
 
           return response.data.result
 
@@ -41,11 +41,10 @@ class Client:
     def block_height(self):
         return self.http_post("block_height")
     
-    def block_get(self, height=None):
+    def block_get(self, height=None, hash=None):
         if height is None:
           return self.http_post("block_get") 
         else:
-          print(f"with height of {height}")
           return self.http_post("block_get", height=height)
 
     # info
@@ -102,17 +101,17 @@ class Client:
 
     # ledger
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_ledger.erl
-    def ledger_balance(self, address=None):
-        if address is None:
+    def ledger_balance(self, addr=None):
+        if addr is None:
           return self.http_post("ledger_balance") 
         else:
-          return self.http_post("ledger_balance", addr=address)
+          return self.http_post("ledger_balance", addr=addr)
     
     #def ledger_balance(self, htlc=True):
     #  return False
 
     def ledger_gateways(self, verbose=False):
-        return self.http_post("ledger_gateways")
+        return self.http_post("ledger_gateways", verbose=verbose)
 
     def ledger_validators(self):
          return self.http_post("ledger_validators")
@@ -131,20 +130,20 @@ class Client:
     def peer_addr(self):
         return self.http_post("peer_addr")
 
-    def peer_connect(self, address):
-        return self.http_post("peer_connect")
+    def peer_connect(self, addr):
+        return self.http_post("peer_connect", addr=addr)
 
-    def peer_ping(self, address):
-        return self.http_post("peer_ping")
+    def peer_ping(self, addr):
+        return self.http_post("peer_ping", addr=addr)
 
-    def peer_book(self, address):
-        return self.http_post("peer_book")
+    def peer_book(self, addr):
+        return self.http_post("peer_book", addr=addr)
 
     def peer_gossip_peers(self):
         return self.http_post("peer_gossip_peers")
 
-    def peer_refresh(self, address=None):
-        return self.http_post("peer_refresh")
+    def peer_refresh(self, addr):
+        return self.http_post("peer_refresh", addr=addr)
 
    # state channel
    # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_sc.erl
