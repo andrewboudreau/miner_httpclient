@@ -38,11 +38,12 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
 
 ## [blocks](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_blocks.erl)
  - ✅ block_height()
- - ✅block_get(height=None)
+ - ✅ block_get(height=None, hash=None)
  ```python
     c = Client()
     height = c.block_height()
     c.block_get(height)
+    
   ```
 
 ## [info](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_info.erl)

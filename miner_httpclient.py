@@ -130,7 +130,7 @@ class Client:
         return self.http_post("peer_listen")
 
     def peer_addr(self):
-        return self.http_post("peer_addr")
+        return self.http_post("peer_addr")["peer_addr"]
 
     def peer_connect(self, addr):
         return self.http_post("peer_connect", addr=addr)
