@@ -57,7 +57,7 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
  - ✅ info_height()
  - ✅ info_in_consensus() 
  - ✅ info_name()
- - ✅info_block_age()
+ - ✅ info_block_age()
  - ❌ info_p2p_status() 
  - ❌ info_region()
  - ✅ info_summary()
@@ -73,7 +73,18 @@ c.info_block_age()
 >>> 127
 
 c.info_summary()
->>> {'block_age': 145, 'epoch': 23029, 'firmware_version': ".....", 'gateway_details': 'undefined', 'height': 906273, 'mac_addresses': [{'eth0': '024...'}, {'lo': '00000.'}], 'name': 'rich-holographic-robin', 'peer_book_entry_count': 61765, 'sync_height': 906273, 'uptime': 78608}
+>>> {
+  'block_age': 145, 
+  'epoch': 23029, 
+  'firmware_version': ".....", 
+  'gateway_details': 'undefined', 
+  'height': 906273, 
+  'mac_addresses': [{'eth0': '024...'}, {'lo': '00000.'}], 
+  'name': 'rich-holographic-robin', 
+  'peer_book_entry_count': 61765, 
+  'sync_height': 906273, 
+  'uptime': 78608
+}
  ```
 
 ## [dkg](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_dkg.erl)
@@ -101,8 +112,7 @@ c.hbbft_status()
  ```
 
 ## [ledger](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_ledger.erl)
- - ✅ ledger_balance()
- - ✅ ledger_balance(address)
+ - ✅ ledger_balance(address=None)
  - ✅ ledger_balance(htlc=True)
  - ✅ ledger_gateways(verbose=False)
  - ✅ ledger_validators(verbose=False)
