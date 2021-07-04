@@ -139,16 +139,18 @@ c.ledger_variables()
 ```
 
 ## [peer](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_peer.erl)
-  - ✅  peer_session()
-  -  peer_listen()
-  - ✅  peer_addr()
-  -  peer_connect(address)
-  -  peer_ping(address)
+  - ✅ peer_session()
+  - ✅ peer_listen()
+  - ✅ peer_addr()
+  - ✅ peer_connect(address)
+  - ✅ peer_connect([])
+  - ✅ peer_ping(address)
+  - ✅ peer_ping([])
   - ✅ peer_book(address)
   - ✅ peer_book("self")
   - ✅ peer_book("all")
-  - ✅  peer_gossip_peers()
-  -  peer_refresh(address=None)
+  - ✅ peer_gossip_peers()
+  - ✅ peer_refresh(address)
 
 ```python
 c.peer_addr()
@@ -174,15 +176,39 @@ c.peer_book("self")
   }]
 
 c.peer_session()
->>> {
-  'sessions': [
-    {'local': '/ip4/172.....3/tcp/34267', 
-      'name': 'sharp-opal-condor', 
-      'p2p': '/p2p/112GbyDcTw77Sjm1uE4Z....', 
-      'remote': '/ip4/47.25..../tcp/44158'}, 
-      ...
-  ]}
+>>> [
+  {
+    'local': '/ip4/172.21.0.3/tcp/2154', 
+    'name': 'cheery-slate-mantaray', 
+    'p2p': '/p2p/112jn...D5', 
+    'remote': '/ip4/174.16.197.84/tcp/44158'
+  }, 
+  {
+    'local': '/ip4/172.21.0.3/tcp/2154', 
+    'name': 'brave-peach-anteater', 
+    'p2p': '/p2p/112mz...2ZVKd', 
+    'remote': '/ip4/135.148.147.186/tcp/2154'
+  }, 
+  ...]
+
+peers = [*map(lambda s: s["p2p"], c.peer_session())]
+c.peer_ping(peers)
+>>> [
+  {'/p2p/112BZd....vX3': 340}, 
+  {'/p2p/112jn2....TD5': 336}, 
+  {'/p2p/112o9F....Q8o': 54}, 
+  {'/p2p/11JKVf....nx': 16}, 
+  {'/p2p/11mck8....sZ': 403}
+]
+
+a = '/p2p/112AV...wa''
+c.peer_ping(a)
+>>> {'/p2p/112AV...wa': 71}
+
+c.peer_connect(c.peer_session()[0]["p2p"])
+>>> {'connected': True}
 ```
+
 ## [snapshot](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_snapshot.erl)
  - ✅ snapshot_list()
 
