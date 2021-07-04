@@ -11,7 +11,7 @@ print(f'Your miner "{summary["name"]}" has an uptime of {summary["uptime"]}')
 client = Client(scheme="http", host="localhost", port=4467, logging=True)
 ```
 
-Since the python client is an http client wrapper, it does the same thing as `curl` but makes life a little easier. All of the calls can be made over `curl` using this simple example.
+Since the python client is an http client wrapper, it does the same thing as `curl`. All of the calls can be made in `curl` using the following example.
 ```bash
  curl 
  -H 'Content-Type: application/json-rpc' 
@@ -25,9 +25,8 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
   miner_jsonrpc_blocks:handle_rpc(<<"block_get">>, #{<<"height">> => 904612}).
 ```
 
+
 # API Endpoints
-
-
 ## [account](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl)
  - ✅ account_get(address)
   ```python

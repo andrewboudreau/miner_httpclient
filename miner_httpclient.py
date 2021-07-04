@@ -121,7 +121,7 @@ class Client:
         if name is None:
             return self.http_post("ledger_variables")
         else:
-          return self.http_post("ledger_variables", name=name)
+          return self.http_post("ledger_variables", name=name)[name]
 
     # peer
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_peer.erl
