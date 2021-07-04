@@ -29,7 +29,7 @@ class Client:
           return response.data.result
 
         except ReceivedErrorResponseError as ex:
-            logging.error(" id: %d method: '%s' message: %s", ex.response.id, method, ex.response.message)
+            logging.error(" id: %s method: '%s' message: %s", ex.response.id, method, ex.response.message)
 
     # account
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl
@@ -103,23 +103,25 @@ class Client:
 
     # ledger
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_ledger.erl
-    def ledger_balance(self, addr=None):
-        if addr is None:
+    def ledger_balance(self, address=None, htlc=None):
+        if address is None and htlc is None:
           return self.http_post("ledger_balance") 
+        elif htlc is None:
+          return self.http_post("ledger_balance", address=address) 
         else:
-          return self.http_post("ledger_balance", addr=addr)
-    
-    #def ledger_balance(self, htlc=True):
-    #  return False
+          return self.http_post("ledger_balance", htlc=True)
 
     def ledger_gateways(self, verbose=False):
         return self.http_post("ledger_gateways", verbose=verbose)
 
-    def ledger_validators(self):
-         return self.http_post("ledger_validators")
+    def ledger_validators(self, verbose=False):
+         return self.http_post("ledger_validators", verbose=verbose)
 
     def ledger_variables(self, name=None):
-         return self.http_post("ledger_variables")
+        if name is None:
+            return self.http_post("ledger_variables")
+        else:
+          return self.http_post("ledger_variables", name=name)
 
     # peer
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_peer.erl
