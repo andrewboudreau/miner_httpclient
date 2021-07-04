@@ -29,21 +29,20 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
 # API Endpoints
 ## [account](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl)
  - ✅ account_get(address)
-  ```python
-    c = Client()
-    addr = c.peer_addr()
-    c.account_get(addr)
-
-    {
-        'address': '19Qaj....',
-        'balance': 0,
-        'dc_balance': 0,
-        'dc_nonce': 0, 
-        'nonce': 0, 
-        'sec_balance': 0, 
-        'sec_nonce': 0
-      }
-  ```
+```python
+  c = Client()
+  addr = c.peer_addr()
+  c.account_get(addr)
+  >>> {
+      'address': '19Qaj....',
+      'balance': 0,
+      'dc_balance': 0,
+      'dc_nonce': 0, 
+      'nonce': 0, 
+      'sec_balance': 0, 
+      'sec_nonce': 0
+    }
+```
 
 ## [blocks](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_blocks.erl)
  - ✅ block_height()
@@ -62,8 +61,8 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
  - ❌ info_p2p_status() 
  - ❌ info_region()
  - ✅ info_summary()
+
  ```python 
- 
 c.info_height()
 >>> {'epoch': 23029, 'height': 906272}
 
@@ -110,6 +109,12 @@ c.hbbft_status()
  - ✅ ledger_variables(name=None)
 
 ```python
+c.ledger_balance("13VsoxfztXYkxaJojVRSvNkzpGk84ues3JSg8Xk9t49tqmz9FSy")
+>>> {
+  'address': '13VsoxfztXYkxaJojVRSvNkzpGk84ues3JSg8Xk9t49tqmz9FSy', 
+  'balance': 480098080087, 
+  'nonce': 19}
+
 c.ledger_balance()
 >>> ...
 
@@ -117,7 +122,7 @@ c.ledger_balance(htlc=True)
 >>> ...
 
 c.ledger_variables("validator_version")
->>> {'validator_version': 1}
+>>> 1
 
 c.ledger_variables()
 >>> {
@@ -146,13 +151,12 @@ c.ledger_variables()
   -  peer_refresh(address=None)
 
 ```python
-c = Client()
 c.peer_addr()
 >>> '/p2p/11vpHJq2EiMTZo4pGVA8LKcfscDF6AK5N6acuriSx2xsoYwRqvU'
 
 c.peer_book("self")
->>> [
-  {'address': '/p2p/11vpHJq2EiMTZo4pGVA8LKcfscDF6AK5N6acuriSx2xsoYwRqvU', 
+>>> [{
+  'address': '/p2p/11vpHJq2EiMTZo4pGVA8LKcfscDF6AK5N6acuriSx2xsoYwRqvU', 
   'connection_count': 3, 
   'last_updated': '152.281', 
   'listen_addr_count': 1, 
@@ -170,26 +174,23 @@ c.peer_book("self")
   }]
 
 c.peer_session()
->>>  {
-'sessions': [
-  {'local': '/ip4/172.....3/tcp/34267', 
-    'name': 'sharp-opal-condor', 
-    'p2p': '/p2p/112GbyDcTw77Sjm1uE4Z....', 
-    'remote': '/ip4/47.25..../tcp/44158'}, 
-    ...
-  ]
-}
+>>> {
+  'sessions': [
+    {'local': '/ip4/172.....3/tcp/34267', 
+      'name': 'sharp-opal-condor', 
+      'p2p': '/p2p/112GbyDcTw77Sjm1uE4Z....', 
+      'remote': '/ip4/47.25..../tcp/44158'}, 
+      ...
+  ]}
 ```
-
 ## [snapshot](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_snapshot.erl)
  - ✅ snapshot_list()
 
 ```python
-c = Client()
 c.snapshot_list()
 >>> [{
-    'hash': 'JlYwCLzKqR-xx4TczcqVTlPQ9JRn-eYEzJggfDDv1Bk', 
-    'hash_hex': [50, 54, 53, 54, 51, 48, 48, 56, 98, 99, 99, 97, 97, 57, 49, 102, 98, 49, 99, 55, 56, 52, 100, 99, 99, 100, 99, 97, 57, 53, 52, 101, 53, 51, 100, 48, 102, 52, 57, 52, 54, 55, 102, 57, 101, 54, 48, 52, 99, 99, 57, 56, 50, 48, 55, 99, 51, 48, 101, 102, 100, 52, 49, 57], 
+  'hash': 'JlYwCLzKqR-xx4TczcqVTlPQ9JRn-eYEzJggfDDv1Bk', 
+  'hash_hex': [50, 54, 53, 54, 51, 48, 48, 56, 98, 99, 99, 97, 97, 57, 49, 102, 98, 49, 99, 55, 56, 52, 100, 99, 99, 100, 99, 97, 57, 53, 52, 101, 53, 51, 100, 48, 102, 52, 57, 52, 54, 55, 102, 57, 101, 54, 48, 52, 99, 99, 57, 56, 50, 48, 55, 99, 51, 48, 101, 102, 100, 52, 49, 57], 
   'have_snapshot': True, 
   'height': 900721
   }]
@@ -199,7 +200,6 @@ c.snapshot_list()
 - ✅ transaction_get(hash)
 
 ```python
-c = Client()
 hash = "0omOntPuW053tpeJF_4rC5r479HdALCX7d6msfTveDQ"
 c.transaction_get(hash)
 >>> {
