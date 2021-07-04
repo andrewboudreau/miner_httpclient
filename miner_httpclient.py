@@ -126,7 +126,7 @@ class Client:
     # peer
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_peer.erl
     def peer_session(self):
-        return self.http_post("peer_session")
+        return self.http_post("peer_session")["sessions"]
 
     def peer_listen(self):
         return self.http_post("peer_listen")
