@@ -10,6 +10,8 @@ pip install -r requirements.txt
 Then try a script like this to get started:
 
 ```python
+from miner_httpclient import Client
+
 # Create a client (only logs errors)
 client = Client()
 summary = client.info_summary()
