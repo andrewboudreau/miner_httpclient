@@ -1,6 +1,14 @@
 # Usage & Notes
 An [http client](https://github.com/andrewboudreau/miner_httpclient) written in Python makes requesting data from the [Helium miner](https://github.com/helium/miner/) jsonrpc endpoints easier.
 
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then try a script like this to get started:
+
 ```python
 # Create a client (only logs errors)
 client = Client()
