@@ -29,7 +29,7 @@ class Client:
           return response.data.result
 
         except ReceivedErrorResponseError as ex:
-            logging.error(" id: %s method: '%s' message: %s", ex.response.id, method, ex.response.message)
+            logging.error("id: %s method: '%s' message: %s", ex.response.id, method, ex.response.message)
 
     # account
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl
@@ -71,6 +71,9 @@ class Client:
     
     def info_summary(self):
         return self.http_post("info_summary")
+
+    def info_version(self):
+        return self.http_post("info_version")["version"]
 
     #def blockForHash(self, hash):
         # not sure what to do here
@@ -115,7 +118,7 @@ class Client:
         return self.http_post("ledger_gateways", verbose=verbose)
 
     def ledger_validators(self, verbose=False):
-         return self.http_post("ledger_validators", verbose=verbose)
+         return self.format_ledger_validators(self.http_post("ledger_validators", verbose=verbose))
 
     def ledger_variables(self, name=None):
         if name is None:
@@ -177,3 +180,15 @@ class Client:
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_txns.erl
     def transaction_get(self, hash):
         return self.http_post("transaction_get", hash=hash)
+
+    def convert_chars_to_string(self, chars):
+      str = ""
+      for c in chars:
+          str += chr(c)
+      return str
+
+    def format_ledger_validators(self, validators):
+        for v in validators:
+            v["name"] = self.convert_chars_to_string(v["name"])
+        return validators
+        

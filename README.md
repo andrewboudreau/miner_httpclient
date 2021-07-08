@@ -61,6 +61,7 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
  - ❌ info_p2p_status() 
  - ❌ info_region()
  - ✅ info_summary()
+ - info_version()
 
  ```python 
 c.info_height()
@@ -130,6 +131,9 @@ c.ledger_balance()
 
 c.ledger_balance(htlc=True)
 >>> ...
+
+c.ledger_validators(Verbose=True)
+>>> [{"dkg_penalty":"0.00","last_heartbeat":910580,"owner_address":"14NvSPHti6K32U6Lven9XMkPEusRfog8jYtUACgm3hqgaPenwyY","performance_penalty":"0.00","stake":0,"status":"unstaked","tenure_penalty":"0.00","total_penalty":"0.00","version":1,"name":[102,97,105,116,104,102,117,108,45,111,114,97,110,103,101,45,109,101,101,114,107,97,116]},{"dkg_penalty":"0.00","last_heartbeat":910580,"owner_address":"14U4L25k8PiMrx2CMSRVj9Zp6rRCnnD389jiYenFQuAmHg8wC4v","performance_penalty":"0.00","stake":1000000000000,"status":"staked","tenure_penalty":"0.00","total_penalty":"0.00","version":1,"name":[100,97,110,100,121,45,109,105,110,116,45,112,101,114,99,104]},{"dkg_penalty":"0.00","last_heartbeat":910580,"owner_address":"1473ysn5yMyG78TxzvX2NZReN6nWT2aStRsSqqvd26pYo6u733N","performance_penalty":"0.00","stake":1000000000000,"status":"staked","tenure_penalty":"0.00","total_penalty":"0.00","version":1,"name":[99,104,101,101,114,102,117,108,45,108,105,110,101,110,45,116,97,112,105,114]}
 
 c.ledger_variables("validator_version")
 >>> 1
