@@ -1,10 +1,6 @@
 
-import json
 import logging
-import requests
 
-# since i'm a newbie, pip install "jsonrpcclient[requests]"
-from jsonrpcclient import request
 from jsonrpcclient.clients.http_client import HTTPClient
 from jsonrpcclient.exceptions import ReceivedErrorResponseError
 from jsonrpcclient.requests import Request
