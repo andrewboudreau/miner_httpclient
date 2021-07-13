@@ -10,15 +10,15 @@ pip install -r requirements.txt
 Then try a script like this to get started:
 
 ```python
-from miner_httpclient import Client
+from miner_client import Client
 
 # Create a client (only logs errors)
-client = Client()
+client = MinerClient()
 summary = client.info_summary()
 print(f'Your miner "{summary["name"]}" has an uptime of {summary["uptime"]}')
 
 # Create a new client with more verbose logging and non-default configs
-client = Client(scheme="http", host="localhost", port=4467, logging=True)
+client = MinerClient(scheme="http", host="localhost", port=4467, logging=True)
 ```
 
 Since the python client is an http client wrapper, it does the same thing as `curl`. All of the calls can be made in `curl` using the following example.
@@ -40,7 +40,7 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
 ## [account](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_accounts.erl)
  - ✅ account_get(address)
 ```python
-  c = Client()
+  c = MinerClient()
   addr = c.peer_addr()
   c.account_get(addr)
   >>> {
@@ -58,7 +58,7 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
  - ✅ block_height()
  - ✅ block_get(height=None, hash=None)
  ```python
-    c = Client()
+    c = MinerClient()
     height = c.block_height()
     c.block_get(height)
   ```
