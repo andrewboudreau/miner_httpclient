@@ -71,7 +71,7 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
  - ❌ info_p2p_status() 
  - ❌ info_region()
  - ✅ info_summary()
- - info_version()
+ - ❌ info_version()
 
  ```python 
 c.info_height()
@@ -100,13 +100,16 @@ c.info_summary()
 
 ## [dkg](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_dkg.erl)
  - ✅ dkg_status()
- -  dkg_queue()
- -  dkg_next()
+ - ❌ dkg_queue()
+ - ✅ dkg_next()
  - ✅ dkg_running()
 
  ```python
  c.dkg_status()
  >>> {'status': 'not_running'}
+
+c.dkg_next()
+>>> {'blocks_to_election': 23, 'next_election_height': 919363, 'running': False}
 
  c.dkg_running()
  >>> {'error': 'not running'}
@@ -114,11 +117,14 @@ c.info_summary()
 
 ## [hbbft](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_hbbft.erl)
  - ✅ hbbft_status()
- -  hbbft_queue()
- -  hbbft_skip()
+ - ❌ hbbft_queue()
+ - ✅ hbbft_skip()
 
  ```python
 c.hbbft_status()
+>>> 'ok'
+
+c.hbbft_skip()
 >>> 'ok'
  ```
 
