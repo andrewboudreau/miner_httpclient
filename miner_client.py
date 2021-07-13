@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # miner http api reference code
 ## https://github.com/helium/miner/tree/mra/jsonrpc/src/jsonrpc
 
-class Client:    
+class MinerClient:
     def __init__(self, scheme="http", host="localhost", port=4467, logging=False):
         self.url = f'{scheme}://{host}:{port}/jsonrpc'
         self.client = HTTPClient(self.url, basic_logging=logging)
@@ -68,14 +68,14 @@ class Client:
     def info_summary(self):
         return self.http_post("info_summary")
 
+    # will work once #877 is merged, https://github.com/helium/miner/pull/887
     def info_version(self):
         return self.http_post("info_version")["version"]
-
-    #def blockForHash(self, hash):
-        # not sure what to do here
     
     # dkg
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_dkg.erl
+    
+    # follow https://github.com/helium/miner/pull/909
     def dkg_status(self):
         return self.http_post("dkg_status")
         
@@ -98,7 +98,7 @@ class Client:
         return self.http_post("hbbft_queue")
 
     def hbbft_skip(self):
-        return self.http_post("hbbft_skip")
+        return self.http_post("hbbft_skip")["result"]
 
     # ledger
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_ledger.erl
@@ -183,6 +183,7 @@ class Client:
           str += chr(c)
       return str
 
+    # remove when a fix for #911 is merged. https://github.com/helium/miner/pull/911
     def format_ledger_validators(self, validators):
         for v in validators:
             v["name"] = self.convert_chars_to_string(v["name"])
