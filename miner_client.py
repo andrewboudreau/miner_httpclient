@@ -100,6 +100,14 @@ class MinerClient:
     def hbbft_skip(self):
         return self.http_post("hbbft_skip")["result"]
 
+    def hbbft_perf(self, name=None):
+        if name is None:
+            return self.http_post("hbbft_perf")
+        if name == "self":
+            return self.by_name(self.http_post("hbbft_perf"), self.info_name())
+        else:
+            return self.by_name(self.http_post("hbbft_perf"), name)
+
     # ledger
     # https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_ledger.erl
     def ledger_balance(self, address=None, htlc=None):
@@ -113,8 +121,13 @@ class MinerClient:
     def ledger_gateways(self, verbose=False):
         return self.http_post("ledger_gateways", verbose=verbose)
 
-    def ledger_validators(self, verbose=False):
-         return self.format_ledger_validators(self.http_post("ledger_validators", verbose=verbose))
+    def ledger_validators(self, address=None):
+        if address is None:
+            return self.http_post("ledger_validators")
+        if address == "self":
+            return self.by_address(self.http_post("ledger_validators"), self.remove_prefix(self.peer_addr(), "/p2p/"))
+        else:
+            return self.by_address(self.http_post("ledger_validators"), self.remove_prefix(address, "/p2p/"))
 
     def ledger_variables(self, name=None):
         if name is None:
@@ -177,15 +190,11 @@ class MinerClient:
     def transaction_get(self, hash):
         return self.http_post("transaction_get", hash=hash)
 
-    def convert_chars_to_string(self, chars):
-      str = ""
-      for c in chars:
-          str += chr(c)
-      return str
+    def by_name(self, validators, name):
+        return next((v for v in validators if v["name"] == name), None)
 
-    # remove when a fix for #911 is merged. https://github.com/helium/miner/pull/911
-    def format_ledger_validators(self, validators):
-        for v in validators:
-            v["name"] = self.convert_chars_to_string(v["name"])
-        return validators
-        
+    def by_address(self, validators, address):
+        return next((v for v in validators if v["address"] == address), None)
+    
+    def remove_prefix(self, text, prefix):
+        return text[text.startswith(prefix) and len(prefix):]

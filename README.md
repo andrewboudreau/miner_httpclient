@@ -68,7 +68,7 @@ The JSON prc handlers are implemented in Erlang and can also be called directly 
  - ✅ info_in_consensus() 
  - ✅ info_name()
  - ✅ info_block_age()
- - ❌ info_p2p_status() 
+ - ✅ info_p2p_status() 
  - ❌ info_region()
  - ✅ info_summary()
  - ❌ info_version()
@@ -79,6 +79,9 @@ c.info_height()
 
 c.info_in_consensus()
 >>> False
+
+c.info_p2p_status()
+>>> {'connected': 'yes', 'dialable': 'yes', 'height': 926887, 'nat_type': 'none'}
 
 c.info_block_age()
 >>> 127
@@ -119,8 +122,49 @@ c.dkg_next()
  - ✅ hbbft_status()
  - ❌ hbbft_queue()
  - ✅ hbbft_skip()
+ - ✅ hbbft_perf(address=None)
+ - ✅ hbbft_perf("self")
 
  ```python
+c.hbbft_perf()
+>>> [
+  { 
+    'address': '11...kXk', 
+    'bba_completions': [2, 24], 
+    'last_bba': 22, 
+    'last_seen': 0, 
+    'name': 'scrawny-ultraviolet-dalmatian', 
+    'penalty': [6.090986666603694], 
+    'seen_votes': [844, 848], 
+    'tenure': [0.9978918650793651]
+  }, ...  ]
+
+c.hbbft_perf("self")
+>>> [
+  { 
+    'address': '14...RCw', 
+    'bba_completions': [21, 21], 
+    'last_bba': 14, 
+    'last_seen': 0, 
+    'name': 'your-validator-name', 
+    'penalty': [2.141286666603694], 
+    'seen_votes': [711, 745], 
+    'tenure': [0.49942956349206347]
+  }, ... ]
+
+c.hbbft_perf("hollow-iron-urchin")
+>>> [
+  {
+    'address': '112eW92d...n', 
+    'bba_completions': [21, 21],
+    'last_bba': 0, 
+    'last_seen': 0, 
+    'name': 'hollow-iron-urchin', 
+    'penalty': [3.1669273013160346], 
+    'seen_votes': [743, 745],
+    'tenure': [3.121428571428572]}
+  }, ... ]
+
 c.hbbft_status()
 >>> 'ok'
 
@@ -132,7 +176,8 @@ c.hbbft_skip()
  - ✅ ledger_balance(address=None)
  - ✅ ledger_balance(htlc=True)
  - ✅ ledger_gateways(verbose=False)
- - ✅ ledger_validators(verbose=False)
+ - ✅ ledger_validators(address=None)
+ - ✅ ledger_validators("self")
  - ✅ ledger_variables(name=None)
 
 ```python
@@ -165,6 +210,13 @@ c.ledger_validators()
   'last_heartbeat': 910809, 
   'owner_address': '14...4v', 
   ...}]
+
+# just this validator
+c.ledger_validators("self")
+>>> {....}
+
+c.ledger_validators("13VsoxfztXYkxaJojVRSvNkzpGk84ues3JSg8Xk9t49tqmz9FSy")
+>>> {....}
 
 c.ledger_variables("validator_version")
 >>> 1
