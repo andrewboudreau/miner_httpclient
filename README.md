@@ -347,3 +347,8 @@ c.transaction_get(hash)
 ## [state channel](https://github.com/helium/miner/tree/master/src/jsonrpc/miner_jsonrpc_sc.erl)
  -  sc_active()
  -  sc_list()
+
+```
+Finding this useful? Help me pay for hosting a testnet instance.
+Send me HNT @ 13zLoLWM3S7uPip5Fk9BzshUL82A8HgwvDqJdwJca9mSJ5uzFRn
+```
